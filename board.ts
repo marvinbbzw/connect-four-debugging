@@ -1,7 +1,7 @@
 const ROWS: number = 6;
 const COLS: number = 7;
 const CONNECT_N: number = 4;
-//test
+
 export enum Player {
   Nobody = "_",
   PlayerX = "x",
@@ -36,15 +36,20 @@ export class Board {
     }
   }
 
-  public makeMove(player: Player, col: number): number {
-    for (let r = this.fields.length - 1; r >= 0; r--) {
-      if (this.fields[r][col] == Player.Nobody) {
-        this.fields[r][col] = player;
-        return r;
-      }
-    }
-    return -1;
+  public makeMove(player: Player, col: unknown): number {
+  if (typeof col !== "number" || !Number.isInteger(col) || col < 0 || col >= COLS) {
+    throw new Error(`Ungültige Eingabe(Gib eine Ganzzahl im Bereich von 0 - 6 ein.): ${col}`);
   }
+
+  for (let r = this.fields.length - 1; r >= 0; r--) {
+    if (this.fields[r][col] === Player.Nobody) {
+      this.fields[r][col] = player;
+      return r;
+    }
+  }
+
+  return -1;
+ }
 
   public winner(player: Player, row: number, col: number): Player {
     const horizontal = this.horizontalWinner(player, row);
