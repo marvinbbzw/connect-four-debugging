@@ -1,7 +1,7 @@
 const ROWS: number = 6;
 const COLS: number = 7;
 const CONNECT_N: number = 4;
-
+//test
 export enum Player {
   Nobody = "_",
   PlayerX = "x",
